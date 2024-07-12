@@ -19,12 +19,12 @@ def store_file():
     
     try:
         file_path = os.path.join(pv_dir, file_name)
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)  
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w') as file:
             file.write(file_data)
         return jsonify({"file": file_name, "message": "Success."}), 200
     except Exception as e:
-        return jsonify({"file": file_name, "error": str(e)}), 500
+        return jsonify({"file": file_name, "error": "Error while storing the file to the storage."}), 500
 
 @app.route("/calculate", methods=['POST'])
 def calculate():
