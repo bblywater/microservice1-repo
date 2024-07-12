@@ -11,11 +11,8 @@ def store_file():
     file_name = data.get('file')
     file_data = data.get('data')
     
-    if not file_name:
+    if not file_name or not file_data:
         return jsonify({"file": None, "error": "Invalid JSON input."}), 400
-    
-    if not file_data:
-        return jsonify({"file": file_name, "error": "Invalid JSON input."}), 400
     
     try:
         file_path = os.path.join(pv_dir, file_name)
@@ -26,18 +23,21 @@ def store_file():
     except Exception as e:
         return jsonify({"file": file_name, "error": "Error while storing the file to the storage."}), 500
 
-@app.route("/calculate", methods=['POST'])
+@app.route('/calculate', methods=['POST'])
 def calculate():
-    data = request.get_json()
-    if not data or "file" not in data or not data["file"]:
+    data = request.json
+    file_name = data.get('file')
+    product = data.get('product')
+
+    if not file_name or not product:
         return jsonify({"file": None, "error": "Invalid JSON input."})
-    
-    file_name = data["file"]
-    product = data.get("product")
-    if not os.path.exists(f"/data/{file_name}"):
+
+    file_path = os.path.join(pv_dir, file_name)
+    if not os.path.exists(file_path):
         return jsonify({"file": file_name, "error": "File not found."})
-    
+
     response = requests.post("http://container2:8080/sum", json={"file": file_name, "product": product})
-    return jsonify(response.json()) 
+    return jsonify(response.json())
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
