@@ -37,7 +37,7 @@ def calculate():
     if not os.path.exists(f"/data/{file_name}"):
         return jsonify({"file": file_name, "error": "File not found."})
     
-    response = requests.post("http://container2:8080/calculate", json={"file": file_name, "product": product})
+    response = requests.post("http://container2:8080/sum", json={"file": file_name, "product": product})
     return jsonify(response.json()) 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
