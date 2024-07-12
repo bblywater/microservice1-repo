@@ -10,9 +10,10 @@ steps:
   - 'deployment/microservice1'
   - 'microservice1=gcr.io/$PROJECT_ID/microservice1:latest'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
   - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
 images:
 - 'gcr.io/$PROJECT_ID/microservice1:latest'
 options:
   logging: CLOUD_LOGGING_ONLY
+timeout: '1200s'
