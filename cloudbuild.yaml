@@ -14,3 +14,5 @@ steps:
   - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
 images:
 - 'gcr.io/$k8swork-429204/microservice1:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
