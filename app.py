@@ -36,7 +36,7 @@ def calculate():
     if not os.path.exists(file_path):
         return jsonify({"file": file_name, "error": "File not found."})
 
-    response = requests.post("http://container2:8080/sum", json={"file": file_name, "product": product})
+    response = requests.post("http://microservice2:8080/sum", json={"file": file_name, "product": product})
     return jsonify(response.json())
 
 if __name__ == '__main__':
